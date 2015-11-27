@@ -1,5 +1,5 @@
 #Dropdown Terminator (like guake)
-Terminator is awesome but it lack the ease of access that guake provides with it's dropdown feature. Our aim is to have this for terminator too.
+Terminator is awesome but it lacks the ease of access that guake provides with it's dropdown feature. Our aim is to have this for terminator too.
 
 First you need to install the following apps:
 `sudo apt-get install wmctrl xdotool xwit`
