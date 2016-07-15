@@ -1,12 +1,12 @@
 #!/bin/bash
-if [ "$(wmctrl -l -x | grep "\.Terminator")" ]; then
-	term_code=$(wmctrl -l -x | grep "\.Terminator" | awk '{print $1}')
+if [ "$(wmctrl -l -x | grep "terminator\.Terminator")" ]; then
+	term_code=$(wmctrl -l -x | awk '{ if($3 == "terminator.Terminator") print $1}')
 	top_code=$(xprop -root | grep "_NET_ACTIVE_WINDOW(WINDOW)" | awk '{print $5}')
 	if [ "${term_code:3}" = "${top_code:2}" ]
 	then
 		xwit -id $top_code -iconify
 	else
-		wmctrl -a terminator -x
+		wmctrl -i -a $term_code
 	fi
 else
 	terminator  --layout=guake-style & 
