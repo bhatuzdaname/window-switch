@@ -1,7 +1,0 @@
-#!/bin/bash
-if [ "$(wmctrl -l -x | grep "\.Terminator")" ]; then
-        wmctrl -a terminator -x
-	terminator --new-tab --working-directory=$1
-else
-        terminator --working-directory=$1 --layout=nautilus-style &
-fi;
