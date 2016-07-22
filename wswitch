@@ -1,13 +1,25 @@
 #!/bin/bash
-if [ "$(wmctrl -l -x | grep "terminator\.Terminator")" ]; then
-	term_code=$(wmctrl -l -x | awk '{ if($3 == "terminator.Terminator") print $1}')
-	top_code=$(xprop -root | grep "_NET_ACTIVE_WINDOW(WINDOW)" | awk '{print $5}')
-	if [ "${term_code:3}" = "${top_code:2}" ]
+
+# TODO check number of arguments
+# TODO used named arguments
+
+# check if the target program is running and has a window
+matched=$(wmctrl -l -x | grep $1)
+if [ "$matched" ]; then
+	target_window_id=$(echo "$matched" | awk '{print $1}')
+	focussed_window_id=$(xprop -root | grep "_NET_ACTIVE_WINDOW(WINDOW)" | awk '{print $5}')
+
+	# check if the target window is the focussed window
+	# Note: $((16#$x)) converts the given hexadecimal number to decimal
+	if [ $((16#${target_window_id:2})) -eq $((16#${focussed_window_id:2})) ]
 	then
-		xwit -id $top_code -iconify
+		# minimize the window
+		xwit -id $target_window_id -iconify
 	else
-		wmctrl -i -a $term_code
+		# bring the window to focus
+		wmctrl -a $target_window_id -x -i
 	fi
 else
-	terminator  --layout=guake-style & 
+	# launch the application
+	$2
 fi
