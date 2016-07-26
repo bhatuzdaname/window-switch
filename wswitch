@@ -4,9 +4,9 @@
 # TODO used named arguments
 
 # check if the target program is running and has a window
-matched=$(wmctrl -l -x | grep $1)
+matched=$(wmctrl -l -x | awk -v wm_class="$1" '{if ($3 == wm_class) print $1}')
 if [ "$matched" ]; then
-	target_window_id=$(echo "$matched" | awk '{print $1}')
+	target_window_id=$matched
 	focussed_window_id=$(xprop -root | grep "_NET_ACTIVE_WINDOW(WINDOW)" | awk '{print $5}')
 
 	# check if the target window is the focussed window
