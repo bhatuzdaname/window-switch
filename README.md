@@ -34,6 +34,7 @@ Let's assume that your target application is [Terminator](https://launchpad.net/
 
 First you need to find the `WM_CLASS` of your target application.
 The following will help you do that.
+
 1. Start your target application.
 2. Fire up a terminal (If your target application is Terminator, you are in luck).
 3. Run the following: `wmctrl -l -x | awk '{print $3}'`. This will print a list of `WM_CLASS` of all the windows currently open on your desktop.
